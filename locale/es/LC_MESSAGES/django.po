@@ -1,0 +1,178 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8
+"
+"Language: es
+"
+
+msgid "Add row"
+msgstr "Agregar fila"
+
+msgid "After you've created a user, you’ll be able to edit more user options."
+msgstr "Después de crear el usuario podrás editar más opciones."
+
+msgid "All applications"
+msgstr "Todas las secciones"
+
+msgid "Apply Filters"
+msgstr "Aplicar filtros"
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Choose file to upload"
+msgstr "Elegir archivo"
+
+msgid "Click to cancel"
+msgstr "Clic para cancelar"
+
+msgid "Click to download"
+msgstr "Clic para descargar"
+
+msgid "Dark"
+msgstr "Oscuro"
+
+msgid "Dataset not found. No action performed."
+msgstr "No se encontraron datos. No se hizo ningún cambio."
+
+msgid "Date"
+msgstr "Fecha"
+
+msgid "Date from"
+msgstr "Desde"
+
+msgid "Date to"
+msgstr "Hasta"
+
+msgid "Expand row"
+msgstr "Ver detalle"
+
+msgid "False"
+msgstr "No"
+
+msgid "Filters"
+msgstr "Filtros"
+
+msgid "From"
+msgstr "Desde"
+
+msgid "Go back"
+msgstr "Volver"
+
+msgid "Image preview"
+msgstr "Vista previa"
+
+msgid "Light"
+msgstr "Claro"
+
+msgid "More actions"
+msgstr "Más acciones"
+
+msgid "Navigate"
+msgstr "Navegar"
+
+msgid "Next"
+msgstr "Siguiente"
+
+msgid "No data"
+msgstr "Sin datos"
+
+msgid "No results found"
+msgstr "No se encontraron resultados"
+
+msgid "Nothing matched your search"
+msgstr "No hay coincidencias con tu búsqueda"
+
+msgid "Previous"
+msgstr "Anterior"
+
+msgid "Recent searches"
+msgstr "Búsquedas recientes"
+
+msgid "Record picture"
+msgstr "Foto"
+
+msgid "Reset filters"
+msgstr "Quitar filtros"
+
+msgid "Return to site"
+msgstr "Volver a la tienda"
+
+msgid "Run"
+msgstr "Ejecutar"
+
+msgid "Search apps and models..."
+msgstr "Buscar en el panel..."
+
+msgid "Select"
+msgstr "Seleccionar"
+
+msgid "Select action"
+msgstr "Elegir acción"
+
+msgid "Select action to run"
+msgstr "Elige una acción para los seleccionados"
+
+msgid "Select all rows"
+msgstr "Seleccionar todo"
+
+msgid "Select currency"
+msgstr "Elegir moneda"
+
+msgid "Select format"
+msgstr "Elegir formato"
+
+msgid "Select record"
+msgstr "Seleccionar"
+
+msgid "Select value"
+msgstr "Elegir valor"
+
+msgid "Submit"
+msgstr "Enviar"
+
+msgid "System"
+msgstr "Sistema"
+
+msgid "This item will be deleted."
+msgstr "Este elemento se eliminará."
+
+msgid "This page yielded into no results. Create a new item or reset your filters."
+msgstr "No hay resultados. Crea uno nuevo o quita los filtros."
+
+msgid "To"
+msgstr "Hasta"
+
+msgid "Toggle password visibility"
+msgstr "Mostrar u ocultar contraseña"
+
+msgid "True"
+msgstr "Sí"
+
+msgid "Type to search"
+msgstr "Escribe para buscar"
+
+msgid "Value"
+msgstr "Valor"
+
+msgid "You can not create nested object without parent"
+msgstr "No puedes crear este elemento sin el principal"
+
+msgid "You have been successfully logged out from the administration"
+msgstr "Cerraste sesión correctamente"
+
+msgid "Save"
+msgstr "Guardar"
+
+msgid "Save and continue editing"
+msgstr "Guardar y seguir editando"
+
+msgid "Save and add another"
+msgstr "Guardar y agregar otro"
+
+msgid "Save as new"
+msgstr "Guardar como nuevo"
+
+msgid "Save and view"
+msgstr "Guardar y ver"
+

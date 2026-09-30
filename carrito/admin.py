@@ -1,14 +1,15 @@
 from django.contrib import admin
+from unfold.admin import ModelAdmin, TabularInline
 
 from .models import Carrito, ItemCarrito
 
 
-class ItemCarritoInline(admin.TabularInline):
+class ItemCarritoInline(TabularInline):
     model = ItemCarrito
     extra = 0
 
 
 @admin.register(Carrito)
-class CarritoAdmin(admin.ModelAdmin):
+class CarritoAdmin(ModelAdmin):
     list_display = ["usuario", "cantidad_items", "total", "actualizado"]
     inlines = [ItemCarritoInline]

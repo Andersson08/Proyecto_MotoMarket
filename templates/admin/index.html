@@ -1,0 +1,95 @@
+{% extends "admin/base.html" %}
+{% load i18n moto_tags %}
+
+{% block title %}Inicio | MotoMarket{% endblock %}
+
+{% block branding %}
+  {% include "unfold/helpers/site_branding.html" %}
+{% endblock %}
+
+{% block content %}
+<div class="mm-panel">
+  <div class="mm-saludo">
+    <h1>Hola, {{ request.user.first_name|default:request.user.username }} 👋</h1>
+    <p>Esto es lo que pasa hoy en MotoMarket.</p>
+  </div>
+
+  <div class="mm-tarjetas">
+    {% for t in tarjetas %}
+    <a class="mm-tarjeta" href="{{ t.enlace }}">
+      <span class="material-symbols-outlined mm-tarjeta-icono">{{ t.icono }}</span>
+      <span class="mm-tarjeta-titulo">{{ t.titulo }}</span>
+      <span class="mm-tarjeta-valor">{% if t.dinero %}{{ t.valor|cop }}{% else %}{{ t.valor }}{% endif %}</span>
+      <span class="mm-tarjeta-detalle">{{ t.detalle }}</span>
+    </a>
+    {% endfor %}
+  </div>
+
+  <h2 class="mm-subtitulo">Accesos rápidos</h2>
+  <div class="mm-accesos">
+    {% for a in accesos %}
+    <a class="mm-acceso" href="{{ a.enlace }}">
+      <span class="material-symbols-outlined">{{ a.icono }}</span>{{ a.texto }}
+    </a>
+    {% endfor %}
+  </div>
+
+  <div class="mm-columnas">
+    <section class="mm-caja mm-ancha">
+      <div class="mm-caja-cabecera">
+        <h2>Últimos pedidos</h2>
+        <a href="{% url 'admin:pedidos_pedido_changelist' %}">Ver todos →</a>
+      </div>
+      {% if ultimos_pedidos %}
+      <table class="mm-tabla">
+        <thead><tr><th>Pedido</th><th>Cliente</th><th>Fecha</th><th>Total</th><th>Estado</th></tr></thead>
+        <tbody>
+          {% for p in ultimos_pedidos %}
+          <tr onclick="location.href='{% url 'admin:pedidos_pedido_change' p.pk %}'">
+            <td><a href="{% url 'admin:pedidos_pedido_change' p.pk %}">{{ p }}</a></td>
+            <td>{{ p.usuario }}</td>
+            <td>{{ p.fecha|date:"d/m/Y H:i" }}</td>
+            <td>{{ p.total|cop }}</td>
+            <td><span class="mm-estado mm-{{ p.estado }}">{{ p.get_estado_display }}</span></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p class="mm-vacio">Todavía no hay pedidos.</p>
+      {% endif %}
+    </section>
+
+    <section class="mm-caja">
+      <div class="mm-caja-cabecera">
+        <h2>Pruebas por aprobar</h2>
+        <a href="{% url 'admin:pruebas_solicitudprueba_changelist' %}?estado__exact=pendiente">Ver todas →</a>
+      </div>
+      {% for s in pruebas %}
+      <a class="mm-fila" href="{% url 'admin:pruebas_solicitudprueba_change' s.pk %}">
+        <strong>{{ s.usuario }}</strong>
+        <span>{{ s.moto }}</span>
+        <small>{{ s.fecha|date:"d/m/Y" }} · {{ s.hora|time:"g:i a" }}</small>
+      </a>
+      {% empty %}
+      <p class="mm-vacio">No hay pruebas pendientes. ✅</p>
+      {% endfor %}
+    </section>
+
+    <section class="mm-caja">
+      <div class="mm-caja-cabecera">
+        <h2>Motos con poco stock</h2>
+        <a href="{% url 'admin:catalogo_moto_changelist' %}">Ver motos →</a>
+      </div>
+      {% for m in poco_stock %}
+      <a class="mm-fila" href="{% url 'admin:catalogo_moto_change' m.pk %}">
+        <strong>{{ m }}</strong>
+        <span class="mm-estado {% if m.stock == 0 %}mm-cancelado{% else %}mm-pendiente{% endif %}">{% if m.stock == 0 %}Agotada{% else %}Quedan {{ m.stock }}{% endif %}</span>
+      </a>
+      {% empty %}
+      <p class="mm-vacio">Todas las motos tienen buen inventario. ✅</p>
+      {% endfor %}
+    </section>
+  </div>
+</div>
+{% endblock %}
