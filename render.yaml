@@ -2,6 +2,7 @@ services:
   - type: web
     name: motomarket
     runtime: python
+    region: ohio
     plan: free
     buildCommand: bash build.sh
     startCommand: gunicorn motomarket.wsgi:application
