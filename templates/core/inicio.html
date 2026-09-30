@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %}Inicio{% endblock %}
+{% block content %}
+{% if destacadas %}
+<section class="hero">
+  <div class="container flex-grow-1 d-flex flex-column">
+    {% for moto in destacadas %}
+    <div class="hero-slide{% if forloop.first %} activo{% endif %}">
+      {% include "includes/hero_moto.html" with detalle_link=True %}
+    </div>
+    {% endfor %}
+    {% if destacadas|length > 1 %}
+    <div class="puntos pb-3">
+      {% for moto in destacadas %}<button type="button" class="{% if forloop.first %}activo{% endif %}" aria-label="Ver {{ moto }}"></button>{% endfor %}
+    </div>
+    {% endif %}
+  </div>
+  {% if destacadas|length > 1 %}
+  <button class="flecha-siguiente" type="button" aria-label="Siguiente moto"><i class="bi bi-chevron-right"></i></button>
+  {% endif %}
+</section>
+{% endif %}
+
+<section class="seccion">
+  <div class="container">
+    <div class="seccion-titulo"><h2>Categorías</h2></div>
+    <div class="d-flex flex-wrap gap-2">
+      {% for c in categorias %}
+      <a class="chip" href="{% url 'catalogo:lista' %}?categoria={{ c.pk }}">{{ c.nombre }} <span class="cuenta">{{ c.total }}</span></a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="seccion">
+  <div class="container">
+    <div class="seccion-titulo">
+      <h2>Recién llegadas</h2>
+      <a href="{% url 'catalogo:lista' %}" class="btn btn-contorno btn-sm">Ver todo el catálogo</a>
+    </div>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
+      {% for moto in recientes %}<div class="col">{% include "includes/tarjeta_moto.html" %}</div>
+      {% empty %}<p class="text-secondary">Aún no hay motos en el catálogo.</p>{% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="seccion">
+  <div class="container">
+    <div class="seccion-titulo"><h2>Nuestras marcas</h2></div>
+    <div class="d-flex flex-wrap gap-2">
+      {% for m in marcas %}<a class="chip" href="{% url 'catalogo:lista' %}?marca={{ m.pk }}">{{ m.nombre }}</a>{% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  (function () {
+    const slides = document.querySelectorAll(".hero-slide");
+    const puntos = document.querySelectorAll(".puntos button");
+    if (slides.length < 2) return;
+    let actual = 0;
+    let temporizador;
+    function mostrar(i) {
+      slides[actual].classList.remove("activo");
+      puntos[actual].classList.remove("activo");
+      actual = (i + slides.length) % slides.length;
+      slides[actual].classList.add("activo");
+      puntos[actual].classList.add("activo");
+      reiniciar();
+    }
+    function reiniciar() {
+      clearInterval(temporizador);
+      temporizador = setInterval(() => mostrar(actual + 1), 7000);
+    }
+    document.querySelector(".flecha-siguiente").addEventListener("click", () => mostrar(actual + 1));
+    puntos.forEach((p, i) => p.addEventListener("click", () => mostrar(i)));
+    reiniciar();
+  })();
+</script>
+{% endblock %}

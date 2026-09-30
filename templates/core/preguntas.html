@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Preguntas frecuentes{% endblock %}
+{% block content %}
+<div class="container pt-3" style="max-width: 860px">
+  <div class="seccion-titulo"><h2>Preguntas frecuentes</h2></div>
+  <div class="accordion preguntas" id="preguntas">
+    <div class="accordion-item">
+      <h3 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#p1">¿Cómo compro una moto?</button></h3>
+      <div id="p1" class="accordion-collapse collapse show" data-bs-parent="#preguntas"><div class="accordion-body">Crea tu cuenta, elige la moto en el catálogo, agrégala al carrito, escribe tus datos de entrega y paga con tarjeta, PSE o en efectivo en nuestra sede.</div></div>
+    </div>
+    <div class="accordion-item">
+      <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#p2">¿Puedo probar la moto antes de comprarla?</button></h3>
+      <div id="p2" class="accordion-collapse collapse" data-bs-parent="#preguntas"><div class="accordion-body">Sí. En la página de cada moto encuentras el botón "Agendar prueba de manejo". Escoge el día y la hora (lunes a sábado de 8:00 a. m. a 5:00 p. m.) y te confirmaremos la cita. Debes traer tu licencia de conducción vigente.</div></div>
+    </div>
+    <div class="accordion-item">
+      <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#p3">¿Qué medios de pago aceptan?</button></h3>
+      <div id="p3" class="accordion-collapse collapse" data-bs-parent="#preguntas"><div class="accordion-body">Tarjetas de crédito y débito (Visa y Mastercard), PSE y efectivo en nuestra sede.</div></div>
+    </div>
+    <div class="accordion-item">
+      <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#p4">¿Cómo sé en qué estado va mi pedido?</button></h3>
+      <div id="p4" class="accordion-collapse collapse" data-bs-parent="#preguntas"><div class="accordion-body">Entra a "Mis pedidos" con tu cuenta. Allí verás si tu pedido está pendiente de pago, pagado, en preparación o entregado.</div></div>
+    </div>
+    <div class="accordion-item">
+      <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#p5">¿Puedo cancelar un pedido?</button></h3>
+      <div id="p5" class="accordion-collapse collapse" data-bs-parent="#preguntas"><div class="accordion-body">Sí, mientras esté pendiente de pago puedes cancelarlo desde el detalle del pedido. Si ya fue pagado, comunícate con nosotros.</div></div>
+    </div>
+    <div class="accordion-item">
+      <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#p6">¿Las motos incluyen matrícula y SOAT?</button></h3>
+      <div id="p6" class="accordion-collapse collapse" data-bs-parent="#preguntas"><div class="accordion-body">El precio publicado corresponde a la moto. Los trámites de matrícula y SOAT se gestionan aparte en nuestra sede; pregúntanos por ellos al recibir tu moto.</div></div>
+    </div>
+    <div class="accordion-item">
+      <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#p7">¿Tienen garantía?</button></h3>
+      <div id="p7" class="accordion-collapse collapse" data-bs-parent="#preguntas"><div class="accordion-body">Todas las motos nuevas tienen la garantía de fábrica de cada marca. Conserva tu comprobante de pedido.</div></div>
+    </div>
+  </div>
+  <p class="text-secondary mt-4">¿No encontraste tu respuesta? <a href="{% url 'core:contacto' %}">Contáctanos</a>.</p>
+</div>
+{% endblock %}

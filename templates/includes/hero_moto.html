@@ -1,0 +1,36 @@
+{% load moto_tags %}
+<div class="hero-cuerpo">
+  <div class="hero-moto">
+    <span class="texto-gigante">{{ moto.modelo|cut:" " }}</span>
+    {% if moto.imagen_principal %}<img src="{{ moto.imagen_principal }}" alt="{{ moto }}">{% endif %}
+  </div>
+  <div class="hero-info">
+    <span class="texto-gigante">{{ moto.anio }}</span>
+    <div class="marca-linea"><span class="logo-icono" style="width:30px;height:30px;font-size:.8rem">{{ moto.marca.nombre|first }}</span>{{ moto.marca }}</div>
+    <h1 class="modelo-titulo">{{ moto.modelo }}</h1>
+    <p>{{ moto.descripcion|truncatewords:45 }}</p>
+    <div class="precio-hero mb-3">{{ moto.precio|cop }}</div>
+    <div class="d-flex flex-wrap gap-2">
+      <a href="{% url 'pruebas:solicitar' moto.pk %}" class="btn btn-verde">Agendar prueba de manejo</a>
+      {% if detalle_link %}<a href="{{ moto.get_absolute_url }}" class="btn btn-contorno">Ver detalles</a>{% endif %}
+    </div>
+  </div>
+</div>
+<div class="specs">
+  <div>
+    <div class="spec-valor">{{ moto.potencia_hp|floatformat:"-1" }}<small>HP</small></div>
+    <div class="spec-nombre">Potencia</div>
+  </div>
+  <div>
+    <div class="spec-valor">{{ moto.get_transmision_display }}</div>
+    <div class="spec-nombre">Transmisión</div>
+  </div>
+  <div>
+    <div class="spec-valor">{% if moto.cilindraje %}{{ moto.cilindraje }}<small>CC</small>{% else %}Eléctrica{% endif %}</div>
+    <div class="spec-nombre">Cilindraje</div>
+  </div>
+  <div>
+    <div class="spec-valor">{{ moto.get_combustible_display }}</div>
+    <div class="spec-nombre">Combustible</div>
+  </div>
+</div>

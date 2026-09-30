@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Términos y condiciones{% endblock %}
+{% block content %}
+<div class="container pt-3 texto-legal" style="max-width: 860px">
+  <div class="seccion-titulo"><h2>Términos y condiciones</h2></div>
+  <p class="text-secondary">Última actualización: septiembre de 2026.</p>
+
+  <h3 class="h5">1. Uso del sitio</h3>
+  <p>Al registrarte y comprar en {{ tienda.nombre }} aceptas estos términos. Debes ser mayor de edad y dar información verdadera en tu registro y en tus pedidos.</p>
+
+  <h3 class="h5">2. Precios y disponibilidad</h3>
+  <p>Los precios están en pesos colombianos (COP) e incluyen IVA. La disponibilidad depende de las unidades en inventario; si una moto se agota antes de confirmar el pago, el pedido no se procesa.</p>
+
+  <h3 class="h5">3. Pedidos y pagos</h3>
+  <p>Un pedido queda confirmado cuando su pago es aprobado. Los pedidos pendientes de pago se pueden cancelar desde la cuenta del cliente.</p>
+
+  <h3 class="h5">4. Pruebas de manejo</h3>
+  <p>Las pruebas de manejo están sujetas a aprobación del concesionario. El cliente debe presentar licencia de conducción vigente para la categoría correspondiente.</p>
+
+  <h3 class="h5">5. Entrega</h3>
+  <p>La moto se entrega en nuestra sede o en la dirección indicada en el pedido, según se acuerde con el cliente. Los trámites de matrícula y SOAT no están incluidos en el precio.</p>
+
+  <h3 class="h5">6. Garantía y derecho de retracto</h3>
+  <p>Aplican la garantía de fábrica de cada marca y los derechos del consumidor establecidos en la Ley 1480 de 2011 (Estatuto del Consumidor).</p>
+
+  <h3 class="h5">7. Contacto</h3>
+  <p>Para cualquier inquietud escríbenos a <a href="mailto:{{ tienda.correo }}">{{ tienda.correo }}</a>.</p>
+</div>
+{% endblock %}

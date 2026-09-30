@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load moto_tags %}
+{% block title %}{{ moto }}{% endblock %}
+{% block content %}
+<section class="hero" style="min-height: auto">
+  <div class="container">
+    <nav class="miga mb-2"><a href="{% url 'catalogo:lista' %}">Modelos</a> / <a href="{% url 'catalogo:lista' %}?marca={{ moto.marca.pk }}">{{ moto.marca }}</a> / {{ moto.modelo }}</nav>
+    <div class="hero-cuerpo">
+      <div>
+        <div class="hero-moto">
+          <span class="texto-gigante">{{ moto.modelo|cut:" " }}</span>
+          <img id="fotoGrande" src="{{ moto.imagen_principal }}" alt="{{ moto }}">
+        </div>
+        {% with imagenes=moto.imagenes.all %}
+        {% if imagenes|length > 1 %}
+        <div class="miniaturas mt-3">
+          {% for img in imagenes %}<button type="button" class="{% if forloop.first %}activo{% endif %}" data-src="{{ img.src }}" aria-label="Foto {{ forloop.counter }}"><img src="{{ img.src }}" alt=""></button>{% endfor %}
+        </div>
+        {% endif %}
+        {% if imagenes.0.credito %}<p class="text-center text-secondary mt-2 mb-0" style="font-size:.7rem">{{ imagenes.0.credito }}</p>{% endif %}
+        {% endwith %}
+      </div>
+      <div class="hero-info">
+        <span class="texto-gigante">{{ moto.anio }}</span>
+        <div class="marca-linea"><span class="logo-icono" style="width:30px;height:30px;font-size:.8rem">{{ moto.marca.nombre|first }}</span>{{ moto.marca }}</div>
+        <h1 class="modelo-titulo">{{ moto.modelo }}</h1>
+        {% if moto.calificacion %}<div class="estrellas mb-2">{{ moto.calificacion|estrellas }} <small class="text-secondary">({{ resenas|length }} reseña{{ resenas|length|pluralize }})</small></div>{% endif %}
+        <p>{{ moto.descripcion }}</p>
+        <div class="d-flex align-items-center gap-3 mb-3">
+          <span class="precio-hero">{{ moto.precio|cop }}</span>
+          {% if moto.disponible %}<span class="etiqueta">{{ moto.stock }} disponible{{ moto.stock|pluralize }}</span>{% else %}<span class="etiqueta">Agotada</span>{% endif %}
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+          {% if moto.disponible %}
+          <form method="post" action="{% url 'carrito:agregar' moto.pk %}">{% csrf_token %}
+            <button class="btn btn-verde"><i class="bi bi-bag-plus me-1"></i> Agregar al carrito</button>
+          </form>
+          {% endif %}
+          <a class="btn btn-contorno" href="{% url 'pruebas:solicitar' moto.pk %}">Agendar prueba</a>
+        </div>
+      </div>
+    </div>
+    <div class="specs">
+      <div><div class="spec-valor">{{ moto.potencia_hp|floatformat:"-1" }}<small>HP</small></div><div class="spec-nombre">Potencia</div></div>
+      <div><div class="spec-valor">{{ moto.get_transmision_display }}</div><div class="spec-nombre">Transmisión</div></div>
+      <div><div class="spec-valor">{% if moto.cilindraje %}{{ moto.cilindraje }}<small>CC</small>{% else %}Eléctrica{% endif %}</div><div class="spec-nombre">Cilindraje</div></div>
+      <div><div class="spec-valor">{{ moto.get_combustible_display }}</div><div class="spec-nombre">Combustible</div></div>
+      {% if moto.color %}<div><div class="spec-valor">{{ moto.color }}</div><div class="spec-nombre">Color</div></div>{% endif %}
+    </div>
+  </div>
+</section>
+
+<section class="seccion pt-3">
+  <div class="container">
+    <div class="seccion-titulo"><h2>Reseñas</h2></div>
+    <div class="row g-4">
+      {% if resena_form %}
+      <div class="col-lg-5">
+        <form method="post" action="{% url 'catalogo:resenar' moto.slug %}" class="panel">{% csrf_token %}
+          <h3 class="h5 mb-3">Cuéntanos tu experiencia</h3>
+          {% include "includes/form.html" with form=resena_form %}
+          <button class="btn btn-verde">Publicar reseña</button>
+        </form>
+      </div>
+      {% endif %}
+      <div class="{% if resena_form %}col-lg-7{% else %}col-12{% endif %}">
+        {% for r in resenas %}
+        <div class="resena">
+          <div class="d-flex justify-content-between">
+            <strong>{{ r.usuario }}</strong>
+            <small class="text-secondary">{{ r.fecha|date:"d M Y" }}</small>
+          </div>
+          <div class="estrellas">{{ r.calificacion|estrellas }}</div>
+          {% if r.comentario %}<p class="mb-0 mt-1 text-light">{{ r.comentario }}</p>{% endif %}
+        </div>
+        {% empty %}
+        <p class="text-secondary">Esta moto aún no tiene reseñas. Solo quienes la compran pueden reseñarla.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% if relacionadas %}
+<section class="seccion">
+  <div class="container">
+    <div class="seccion-titulo"><h2>También te puede interesar</h2></div>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
+      {% for moto in relacionadas %}<div class="col">{% include "includes/tarjeta_moto.html" %}</div>{% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+  document.querySelectorAll(".miniaturas button").forEach((boton) => {
+    boton.addEventListener("click", () => {
+      document.querySelectorAll(".miniaturas button").forEach((b) => b.classList.remove("activo"));
+      boton.classList.add("activo");
+      document.getElementById("fotoGrande").src = boton.dataset.src;
+    });
+  });
+</script>
+{% endblock %}

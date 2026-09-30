@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Política de privacidad{% endblock %}
+{% block content %}
+<div class="container pt-3 texto-legal" style="max-width: 860px">
+  <div class="seccion-titulo"><h2>Política de privacidad</h2></div>
+  <p class="text-secondary">Tratamiento de datos personales conforme a la Ley 1581 de 2012 y el Decreto 1377 de 2013.</p>
+
+  <h3 class="h5">1. Responsable</h3>
+  <p>{{ tienda.nombre }}, con sede en {{ tienda.direccion }}, correo <a href="mailto:{{ tienda.correo }}">{{ tienda.correo }}</a>.</p>
+
+  <h3 class="h5">2. Datos que recolectamos</h3>
+  <p>Nombre, correo, teléfono, documento, dirección, ciudad, número de licencia de conducción (para pruebas de manejo) e historial de pedidos.</p>
+
+  <h3 class="h5">3. Finalidad</h3>
+  <p>Gestionar tu cuenta, procesar tus pedidos y pagos, agendar pruebas de manejo, contactarte sobre tus solicitudes y cumplir obligaciones legales. No vendemos ni compartimos tus datos con terceros para fines comerciales.</p>
+
+  <h3 class="h5">4. Datos de pago</h3>
+  <p>No almacenamos los números de tarjeta, fechas de vencimiento ni códigos de seguridad.</p>
+
+  <h3 class="h5">5. Tus derechos</h3>
+  <p>Puedes conocer, actualizar, rectificar y solicitar la supresión de tus datos, así como revocar la autorización. Actualiza tus datos desde "Mi perfil" o escríbenos a <a href="mailto:{{ tienda.correo }}">{{ tienda.correo }}</a>.</p>
+
+  <h3 class="h5">6. Seguridad</h3>
+  <p>Las contraseñas se guardan cifradas y el sitio funciona con conexión segura (HTTPS).</p>
+</div>
+{% endblock %}

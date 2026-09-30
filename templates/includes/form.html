@@ -1,0 +1,24 @@
+{% load moto_tags %}
+{% for error in form.non_field_errors %}<div class="alerta alerta-error">{{ error }}</div>{% endfor %}
+{% for field in form %}
+<div class="mb-3 campo-{{ field.name }}">
+  {% if field.field.widget.input_type == "checkbox" %}
+  <div class="form-check">
+    <input type="checkbox" name="{{ field.html_name }}" id="{{ field.id_for_label }}" class="form-check-input{% if field.errors %} is-invalid{% endif %}" {% if field.value %}checked{% endif %}>
+    <label class="form-check-label small" for="{{ field.id_for_label }}">{{ field.label }}</label>
+    {% for e in field.errors %}<div class="invalid-feedback">{{ e }}</div>{% endfor %}
+  </div>
+  {% elif field.field.widget.input_type == "radio" %}
+  <span class="form-label d-block">{{ field.label }}</span>
+  {% for opcion in field %}
+  <label class="opcion-pago" for="{{ opcion.id_for_label }}">{{ opcion.tag }} {{ opcion.choice_label }}</label>
+  {% endfor %}
+  {% for e in field.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}
+  {% else %}
+  <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+  {{ field|bs }}
+  {% if field.help_text %}<div class="form-text small">{{ field.help_text|safe }}</div>{% endif %}
+  {% for e in field.errors %}<div class="text-danger small mt-1">{{ e }}</div>{% endfor %}
+  {% endif %}
+</div>
+{% endfor %}

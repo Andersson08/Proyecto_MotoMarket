@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load moto_tags %}
+{% block title %}Pagar {{ pedido }}{% endblock %}
+{% block content %}
+<div class="container pt-3" style="max-width: 680px">
+  <div class="seccion-titulo"><h2>Pagar {{ pedido }}</h2><span class="spec-nombre">Paso 2 de 2</span></div>
+  <div class="panel mb-3 d-flex justify-content-between align-items-center">
+    <span class="spec-nombre">Total a pagar</span>
+    <span class="precio-hero text-verde">{{ pedido.total|cop }}</span>
+  </div>
+  <form method="post" class="panel">{% csrf_token %}
+    {% include "includes/form.html" %}
+    <button class="btn btn-verde w-100">Pagar {{ pedido.total|cop }}</button>
+  </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  (function () {
+    const camposTarjeta = document.querySelectorAll(".campo-titular, .campo-numero_tarjeta, .campo-vencimiento, .campo-cvv");
+    function actualizar() {
+      const metodo = document.querySelector("input[name=metodo]:checked");
+      const esTarjeta = metodo && metodo.value === "tarjeta";
+      camposTarjeta.forEach((c) => c.classList.toggle("d-none", !esTarjeta));
+    }
+    document.querySelectorAll("input[name=metodo]").forEach((r) => r.addEventListener("change", actualizar));
+    actualizar();
+  })();
+</script>
+{% endblock %}

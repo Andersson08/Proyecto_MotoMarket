@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Mi perfil{% endblock %}
+{% block content %}
+<div class="container pt-3" style="max-width: 720px">
+  <div class="seccion-titulo"><h2>Mi perfil</h2></div>
+  <form method="post" class="panel">{% csrf_token %}
+    <div class="row">
+      {% include "includes/form.html" %}
+    </div>
+    <button class="btn btn-verde">Guardar cambios</button>
+  </form>
+</div>
+{% endblock %}

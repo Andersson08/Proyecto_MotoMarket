@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load moto_tags %}
+{% block title %}Datos de entrega{% endblock %}
+{% block content %}
+<div class="container pt-3">
+  <div class="seccion-titulo"><h2>Datos de entrega</h2><span class="spec-nombre">Paso 1 de 2</span></div>
+  <div class="row g-4">
+    <div class="col-lg-7">
+      <form method="post" class="panel">{% csrf_token %}
+        {% include "includes/form.html" %}
+        <button class="btn btn-verde">Ir a pagar</button>
+      </form>
+    </div>
+    <div class="col-lg-5">
+      <div class="panel">
+        <h3 class="h5 mb-3">Resumen</h3>
+        {% for i in items %}
+        <div class="d-flex justify-content-between small py-2 border-bottom border-secondary-subtle"><span>{{ i.cantidad }} × {{ i.moto }}</span><span>{{ i.subtotal|cop }}</span></div>
+        {% endfor %}
+        <div class="d-flex justify-content-between align-items-center mt-3"><span class="spec-nombre">Total</span><span class="precio-hero text-verde">{{ total|cop }}</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

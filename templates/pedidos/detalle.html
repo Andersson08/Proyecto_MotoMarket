@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load moto_tags %}
+{% block title %}{{ pedido }}{% endblock %}
+{% block content %}
+<div class="container pt-3" style="max-width: 900px">
+  <div class="seccion-titulo">
+    <h2>{{ pedido }}</h2>
+    <span class="estado estado-{{ pedido.estado }}">{{ pedido.get_estado_display }}</span>
+  </div>
+  <p class="text-secondary small">Realizado el {{ pedido.fecha|date:"d/m/Y H:i" }} · Entrega en {{ pedido.direccion_entrega }}, {{ pedido.ciudad }} · Tel. {{ pedido.telefono }}</p>
+  <div class="panel mb-3">
+    {% for d in pedido.detalles.all %}
+    <div class="d-flex align-items-center gap-3 py-2{% if not forloop.last %} border-bottom border-secondary-subtle{% endif %}">
+      <div class="tarjeta-foto rounded-3" style="width:110px;padding:.3rem"><img src="{{ d.moto.imagen_pequena }}" alt=""></div>
+      <a class="flex-grow-1 text-white text-decoration-none fw-semibold" href="{{ d.moto.get_absolute_url }}">{{ d.moto }}</a>
+      <span class="text-secondary small">{{ d.cantidad }} × {{ d.precio_unitario|cop }}</span>
+      <span class="fw-semibold" style="min-width:130px;text-align:right">{{ d.subtotal|cop }}</span>
+    </div>
+    {% endfor %}
+    <div class="d-flex justify-content-between align-items-center mt-3"><span class="spec-nombre">Total</span><span class="precio-hero text-verde">{{ pedido.total|cop }}</span></div>
+  </div>
+  {% if pedido.pago %}
+  <div class="panel mb-3 small">
+    <span class="spec-nombre d-block mb-1">Pago</span>
+    {{ pedido.pago.get_metodo_display }} · Ref. <strong>{{ pedido.pago.referencia }}</strong> ·
+    <span class="estado {% if pedido.pago.estado == 'aprobado' %}estado-pagado{% else %}estado-rechazada{% endif %}">{{ pedido.pago.get_estado_display }}</span>
+    · {{ pedido.pago.fecha|date:"d/m/Y H:i" }}
+  </div>
+  {% endif %}
+  {% if pedido.estado == "pendiente" %}
+  <div class="d-flex gap-2">
+    <a href="{% url 'pedidos:pagar' pedido.pk %}" class="btn btn-verde">Pagar ahora</a>
+    <form method="post" action="{% url 'pedidos:cancelar' pedido.pk %}">{% csrf_token %}<button class="btn btn-contorno">Cancelar pedido</button></form>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

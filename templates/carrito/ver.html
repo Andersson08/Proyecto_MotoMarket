@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load moto_tags %}
+{% block title %}Carrito{% endblock %}
+{% block content %}
+<div class="container pt-3">
+  <div class="seccion-titulo"><h2>Mi carrito</h2></div>
+  {% if items %}
+  <div class="row g-4">
+    <div class="col-lg-8">
+      {% for item in items %}
+      <div class="panel d-flex flex-wrap align-items-center gap-3 mb-3">
+        <a href="{{ item.moto.get_absolute_url }}" class="tarjeta-foto rounded-3" style="width:150px;padding:.4rem"><img src="{{ item.moto.imagen_pequena }}" alt="{{ item.moto }}"></a>
+        <div class="flex-grow-1">
+          <span class="tarjeta-marca">{{ item.moto.marca }}</span>
+          <div class="tarjeta-modelo" style="font-size:1.3rem">{{ item.moto.modelo }}</div>
+          <span class="text-secondary small">{{ item.moto.precio|cop }} c/u</span>
+        </div>
+        <form method="post" action="{% url 'carrito:actualizar' item.pk %}" class="d-flex gap-1" style="width:130px">{% csrf_token %}
+          <input type="number" name="cantidad" value="{{ item.cantidad }}" min="0" max="{{ item.moto.stock }}" class="form-control form-control-sm" aria-label="Cantidad">
+          <button class="btn btn-sm btn-contorno px-2" title="Actualizar"><i class="bi bi-arrow-repeat"></i></button>
+        </form>
+        <span class="precio-hero" style="font-size:1.3rem;min-width:140px;text-align:right">{{ item.subtotal|cop }}</span>
+        <form method="post" action="{% url 'carrito:eliminar' item.pk %}">{% csrf_token %}
+          <button class="icono-btn" title="Eliminar" style="font-size:1.2rem"><i class="bi bi-trash3"></i></button>
+        </form>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="col-lg-4">
+      <div class="panel">
+        <h3 class="h5">Resumen</h3>
+        <div class="d-flex justify-content-between text-secondary small mb-2"><span>Motos</span><span>{{ carrito.cantidad_items }}</span></div>
+        <hr>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <span class="spec-nombre">Total</span>
+          <span class="precio-hero text-verde">{{ carrito.total|cop }}</span>
+        </div>
+        <a href="{% url 'pedidos:checkout' %}" class="btn btn-verde w-100">Continuar con la compra</a>
+        <a href="{% url 'catalogo:lista' %}" class="btn btn-link btn-sm w-100 mt-1 text-secondary">Seguir viendo motos</a>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="panel text-center py-5">
+    <i class="bi bi-bag fs-1 text-verde"></i>
+    <p class="mt-3">Tu carrito está vacío.</p>
+    <a href="{% url 'catalogo:lista' %}" class="btn btn-verde">Ver modelos</a>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
