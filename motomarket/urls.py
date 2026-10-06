@@ -9,6 +9,7 @@ admin.site.index_title = "Panel del concesionario"
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("api/", include("motomarket.api_urls")),
     path("", include("core.urls")),
     path("cuenta/", include("usuarios.urls")),
     path("motos/", include("catalogo.urls")),

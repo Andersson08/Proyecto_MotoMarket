@@ -1,0 +1,261 @@
+@use "variables" as *;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: $negro;
+  color: $texto;
+  font-family: $cuerpo;
+}
+
+.cabecera {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  border-bottom: 1px solid $borde;
+
+  @include desde(768px) {
+    padding: 18px 40px;
+  }
+
+  &__marca {
+    font-family: $titulos;
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: $texto;
+    text-decoration: none;
+
+    span {
+      color: $verde;
+    }
+  }
+
+  &__buscar {
+    flex: 1 1 220px;
+    max-width: 340px;
+    padding: 10px 14px;
+    border: 1px solid $borde;
+    border-radius: 999px;
+    background: $carbon;
+    color: $texto;
+    font: inherit;
+
+    &:focus {
+      outline: 2px solid $verde;
+      outline-offset: 1px;
+    }
+  }
+}
+
+.contenido {
+  flex: 1;
+  width: 100%;
+  max-width: $ancho;
+  margin: 0 auto;
+  padding: 28px 16px 48px;
+}
+
+.titular {
+  &__sobre {
+    margin: 0;
+    color: $verde;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+  }
+
+  &__titulo {
+    margin: 4px 0;
+    font-family: $titulos;
+    font-size: clamp(2.2rem, 7vw, 4.2rem);
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  &__resumen {
+    margin: 0;
+    min-height: 1.2em;
+    color: $tenue;
+  }
+}
+
+.categorias {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 24px 0;
+
+  &__boton {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 16px;
+    border: 1px solid $borde;
+    border-radius: 999px;
+    background: $carbon;
+    color: $texto;
+    font: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+
+    &:hover {
+      border-color: $verde;
+      color: $verde;
+    }
+
+    &--activa,
+    &--activa:hover {
+      background: $verde;
+      border-color: $verde;
+      color: $negro;
+      font-weight: 600;
+    }
+  }
+
+  &__total {
+    font-size: 0.75rem;
+    opacity: 0.7;
+  }
+}
+
+.estado {
+  color: $tenue;
+
+  &:empty {
+    display: none;
+  }
+}
+
+.rejilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.tarjeta {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid $borde;
+  border-radius: 14px;
+  background: $carbon;
+  overflow: hidden;
+  transition: border-color 0.15s, transform 0.15s;
+
+  &:hover {
+    border-color: $verde;
+    transform: translateY(-3px);
+  }
+
+  &__marco {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    display: grid;
+    place-items: center;
+    background: radial-gradient(circle at 50% 70%, rgba($verde, 0.14), transparent 65%);
+  }
+
+  &__imagen {
+    width: 100%;
+    height: 100%;
+    padding: 12px;
+    object-fit: contain;
+  }
+
+  &__categoria {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba($negro, 0.75);
+    border: 1px solid $borde;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  &__cuerpo {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 4px;
+    padding: 16px;
+  }
+
+  &__marca {
+    margin: 0;
+    color: $verde;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  &__modelo {
+    margin: 0;
+    font-family: $titulos;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+  }
+
+  &__ficha {
+    margin: 0;
+    color: $tenue;
+    font-size: 0.85rem;
+    text-transform: capitalize;
+  }
+
+  &__pie {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 14px;
+  }
+
+  &__precio {
+    font-family: $titulos;
+    font-size: 1.25rem;
+  }
+
+  &__stock {
+    color: $tenue;
+    font-size: 0.78rem;
+
+    &--agotada {
+      color: $rojo;
+    }
+  }
+}
+
+.pie {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: space-between;
+  padding: 18px 16px;
+  border-top: 1px solid $borde;
+  color: $tenue;
+  font-size: 0.85rem;
+
+  @include desde(768px) {
+    padding: 18px 40px;
+  }
+
+  a {
+    color: $verde;
+  }
+}

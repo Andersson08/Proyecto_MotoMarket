@@ -27,6 +27,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.humanize",
+    "rest_framework",
+    "drf_spectacular",
+    "corsheaders",
     "core",
     "usuarios",
     "catalogo",
@@ -38,6 +41,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -117,6 +121,27 @@ if not DEBUG:
     CSRF_COOKIE_SECURE = True
 
 AUTHENTICATION_BACKENDS = ["usuarios.backends.UsuarioOCorreoBackend"]
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_URLS_REGEX = r"^/api/.*$"
+
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.BasicAuthentication",
+    ],
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "API de MotoMarket",
+    "DESCRIPTION": (
+        "API REST de la tienda MotoMarket. La consulta es pública; crear, editar y "
+        "eliminar requiere un usuario administrador (botón Authorize, basicAuth)."
+    ),
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+}
 
 UNFOLD = {
     "SITE_TITLE": "MotoMarket",

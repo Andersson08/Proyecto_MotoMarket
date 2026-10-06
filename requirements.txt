@@ -10,3 +10,6 @@ sqlparse==0.6.0
 typing_extensions==4.16.0
 tzdata==2026.4
 whitenoise==6.12.0
+django-cors-headers==4.9.0
+djangorestframework==3.18.1
+drf-spectacular==0.30.0
