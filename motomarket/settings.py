@@ -16,6 +16,10 @@ RENDER_HOST = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_HOST:
     ALLOWED_HOSTS.append(RENDER_HOST)
     CSRF_TRUSTED_ORIGINS.append(f"https://{RENDER_HOST}")
+FRONTEND_URL = os.environ.get("FRONTEND_URL", "https://motomarket-frontend.onrender.com")
+CSRF_TRUSTED_ORIGINS.append(FRONTEND_URL)
+if DEBUG:
+    CSRF_TRUSTED_ORIGINS += ["http://localhost:5173", "http://127.0.0.1:5173"]
 
 INSTALLED_APPS = [
     "unfold",
@@ -119,10 +123,17 @@ if not DEBUG:
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
+    SECURE_SSL_REDIRECT = True
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    SECURE_REFERRER_POLICY = "same-origin"
+    X_FRAME_OPTIONS = "DENY"
 
 AUTHENTICATION_BACKENDS = ["usuarios.backends.UsuarioOCorreoBackend"]
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [FRONTEND_URL, "http://localhost:5173", "http://127.0.0.1:5173"]
+CORS_ALLOW_CREDENTIALS = True
 CORS_URLS_REGEX = r"^/api/.*$"
 
 REST_FRAMEWORK = {
@@ -137,7 +148,7 @@ SPECTACULAR_SETTINGS = {
     "TITLE": "API de MotoMarket",
     "DESCRIPTION": (
         "API REST de la tienda MotoMarket. La consulta es pública; crear, editar y "
-        "eliminar requiere un usuario administrador (botón Authorize, basicAuth)."
+        "eliminar requiere un usuario administrador: desde Swagger con el botón Authorize (basicAuth) y desde el frontend con la sesión de /api/auth/login/ más la cabecera X-CSRFToken."
     ),
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,

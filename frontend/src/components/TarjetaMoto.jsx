@@ -1,10 +1,8 @@
-const pesos = new Intl.NumberFormat("es-CO", {
-  style: "currency",
-  currency: "COP",
-  maximumFractionDigits: 0,
-});
+import { pesos } from "../carrito.js";
 
-export default function TarjetaMoto({ moto }) {
+export default function TarjetaMoto({ moto, enCarrito, alAgregar }) {
+  const lleno = enCarrito >= moto.stock;
+
   return (
     <article className="tarjeta">
       <div className="tarjeta__marco">
@@ -32,6 +30,14 @@ export default function TarjetaMoto({ moto }) {
             {moto.disponible ? `${moto.stock} disponibles` : "Agotada"}
           </span>
         </div>
+        <button
+          type="button"
+          className="boton boton--lleno tarjeta__agregar"
+          disabled={!moto.disponible || lleno}
+          onClick={() => alAgregar(moto)}
+        >
+          {lleno && moto.disponible ? "Sin más unidades" : enCarrito ? `En el carrito (${enCarrito}) · Agregar otra` : "Agregar al carrito"}
+        </button>
       </div>
     </article>
   );
