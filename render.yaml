@@ -10,7 +10,9 @@ services:
       - key: PYTHON_VERSION
         value: 3.12.7
       - key: DATABASE_URL
-        sync: false
+        fromDatabase:
+          name: motomarket-db
+          property: connectionString
       - key: SECRET_KEY
         generateValue: true
       - key: DEBUG
@@ -61,3 +63,10 @@ services:
       - path: /*
         name: Strict-Transport-Security
         value: max-age=31536000; includeSubDomains
+
+databases:
+  - name: motomarket-db
+    plan: free
+    region: ohio
+    databaseName: motomarket
+    user: motomarket
